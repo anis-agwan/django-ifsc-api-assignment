@@ -19,6 +19,6 @@ from api.views import ViewImport
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^import/', ImportView.as_view(), name='import'),
+    url(r'^import/', ViewImport.as_view(), name='import'),
     url(r'^api/', include('api.urls'))
 ]
