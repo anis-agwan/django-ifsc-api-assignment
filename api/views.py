@@ -14,8 +14,8 @@ class ViewImport(View):
         return render(request, 'view_import.html')
 
     def post(self, request):
-        csv_data = request.FILES.get('csv_data')
-        decoded_data = csv_data.read().decode('utf-8').splitlines()
+        csv_file = request.FILES.get('csv_file')
+        decoded_data = csv_file.read().decode('utf-8').splitlines()
         dict_reader = csv.DictReader(decoded_data)
         count = 0
         for row in dict_reader:
@@ -30,15 +30,15 @@ class ViewImport(View):
             if not ifsc_code:
                 break
             bankObject, created = Bank.objects.get_or_create(
-                name= bankName
+                bankName= bankName
             )
             defaults_branch = {
-                'name': branchName,
+                'branchName': branchName,
                 'bank': bankObject,
-                'address': bankAddress,
-                'city': bankCity,
-                'district': bankDistrict,
-                'state': bankState
+                'branchAddress': bankAddress,
+                'branchCity': bankCity,
+                'branchDistrict': bankDistrict,
+                'branchState': bankState
             }
 
             branchObject, created = Branch.objects.update_or_create(
@@ -54,12 +54,12 @@ class ViewImport(View):
 
 class ViewDetails(View):
     def get(self, request, ifsc_code):
-        branch = Branch.objects.filter(ifsc_iexact=ifsc_code).first()
+        branch = Branch.objects.filter(ifsc_code__iexact=ifsc_code).first()
         serializer = BranchSerializer(branch)
         return JsonResponse(serializer.data, safe=False)
 
 class ViewList(View):
-    def get(self, request, bankCity, bankName):
-        branch_qset = Branch.objects.filter(bankCity_iexact=bankCity, bankName_icontains=bankName)
+    def get(self, request, branchCity, branchName):
+        branch_qset = Branch.objects.filter(branchCity__iexact=branchCity, branchName__icontains=branchName)
         serializer = BranchSerializer(branch_qset, many=True)
         return JsonResponse(serializer.data, safe=False)

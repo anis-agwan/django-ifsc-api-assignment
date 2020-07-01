@@ -6,5 +6,5 @@ class BranchSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Branch
         fields = (
-            'id', 'ifsc', 'name', 'address', 'city', 'dsitrict', 'state'
+            'id', 'ifsc_code', 'branchName', 'bank', 'branchAddress', 'branchCity', 'branchDistrict', 'branchState'
         )
