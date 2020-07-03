@@ -19,7 +19,7 @@ class ViewImport(View):
         dict_reader = csv.DictReader(decoded_data)
         count = 0
         for row in dict_reader:
-            bankName = row.get('bank_name')
+            bank_name = row.get('bank_name')
             ifsc_code = row.get('ifsc')
             branchName = row.get('branch')
             bankAddress = row.get('address')
@@ -30,7 +30,7 @@ class ViewImport(View):
             if not ifsc_code:
                 break
             bankObject, created = Bank.objects.get_or_create(
-                bankName= bankName
+                name = bank_name
             )
             defaults_branch = {
                 'branchName': branchName,
@@ -59,7 +59,7 @@ class ViewDetails(View):
         return JsonResponse(serializer.data, safe=False)
 
 class ViewList(View):
-    def get(self, request, branchCity, branchName):
-        branch_qset = Branch.objects.filter(branchCity__iexact=branchCity, branchName__icontains=branchName)
+    def get(self, request, branchCity, bank):
+        branch_qset = Branch.objects.filter(branchCity__iexact=branchCity, bank__name__icontains=bank)
         serializer = BranchSerializer(branch_qset, many=True)
         return JsonResponse(serializer.data, safe=False)
