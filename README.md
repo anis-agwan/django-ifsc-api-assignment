@@ -26,7 +26,7 @@ http://localhost:8000/api/ifsc/<ifsc_code>
 
 Given a bank name and city, gets details of all branches of the bank in the city from the URL:
 ```
-http://localhost:8000/api/branches/<city>/<branch-name}>
+http://localhost:8000/api/branches/<branchCity>/<bank-name}>
 ```
 
 API has been deployed on Heroku:
