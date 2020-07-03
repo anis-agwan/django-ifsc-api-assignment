@@ -2,13 +2,13 @@ from django.db import models
 
 # Create your models here.
 class Bank(models.Model):
-    bankName = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     class Meta:
-        ordering = ('bankName', )
+        ordering = ('name', )
 
     def __str__(self):
-        return "{}".format(self.bankName)
+        return "{}".format(self.name)
 
 class Branch(models.Model):
     branchName = models.CharField(max_length=200)

@@ -6,8 +6,8 @@ from django.contrib import admin
 
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
-    search_fields = ('bankName',)
-    list_filter = ('bankName', )
+    search_fields = ('name',)
+    list_filter = ('name', )
 
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
